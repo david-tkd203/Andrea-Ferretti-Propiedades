@@ -13,12 +13,12 @@
 .logo-container{
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 16px;
 
 }
 
 .logo{
-    width: 50px;
+    width: 150px;
 }
 
 .nav-items{
@@ -39,4 +39,27 @@
 .nav-items a:hover{
     background-color: #E48F45;
 
+}
+
+.cart-widget {
+    margin-left: 20px;
+    color: black;
+    background-color: orange;
+    padding-inline: 24px;
+    padding-block: 16px;
+    font-family: sans-serif;
+}
+
+.cart-widget a{
+    text-decoration: none;
+    color: black;
+    font-weight: 700;
+    padding-inline: 16px;
+    padding-block: 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.cart-widget a:hover{
+    background-color: #E48F45;
 }
