@@ -7,9 +7,9 @@ function App() {
   return (
     <>
     <Navbar></Navbar>
-    <Main>
+    <section>
       <ItemListContainer></ItemListContainer>
-    </Main>
+    </section>
     </>
   )
 }
