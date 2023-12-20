@@ -4,12 +4,12 @@ import './ItemListContainer.css';
 
 function ItemListContainer() {
   const items = [
-    { id: 1, name: 'Propiedad en arriendo', category: 'arriendos', image: '../propiedades arriendo/CASA_ARRIENDO_1.jpeg'},
-    { id: 2, name: 'Propiedad en venta', category: 'ventas', image: '../propiedades en venta/CASA_VENTA_1.jpeg'},
+    { id: 1, name: "Propiedad en arriendo", category: "Casa", image: "../propiedades arriendo/CASA_ARRIENDO_1.jpeg", comuna:  "Curico", operacion: "Venta"},
+    { id: 2, name: "Propiedad en venta", category: "Casa", image: "../propiedades en venta/CASA_VENTA_1.jpeg", comuna:  "Curico", operacion: "Arriendo"},
   ];
 
-  const arriendos = items.filter(item => item.category === 'arriendos');
-  const ventas = items.filter(item => item.category === 'ventas');
+  const arriendos = items.filter(item => item.operacion === "arriendo");
+  const ventas = items.filter(item => item.operacion === "venta");
 
   return (
     <div className="item-list-container">
