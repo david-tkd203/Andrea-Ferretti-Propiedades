@@ -5,9 +5,9 @@ function ItemDetailContainer() {
   const { id } = useParams();
   const itemDetails = {
     id: id,
-    name: "Propiedad ${id}",
-    description: "Descripción detallada de la Propiedad ${id}",
-    image: "/propiedades en venta/CASA_VENTA_${id}.jpeg", 
+    name: `Propiedad ${id}`,
+    description: `Descripción detallada de la Propiedad ${id}`,
+    image: `./propiedades en venta/CASA_VENTA_${id}.jpeg`, 
   };
 
   return (

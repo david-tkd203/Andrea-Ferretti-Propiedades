@@ -10,8 +10,8 @@ function Navbar() {
       </div>
       <div className="nav-items">
         <Link to="/">Inicio</Link>
-        <Link to="/category/arriendos">Arriendos</Link>
-        <Link to="/category/terrenos">Terrenos</Link>
+        <Link to="/operacion/arriendos">Arriendos</Link>
+        <Link to="/operacion/terrenos">Terrenos</Link>
         <Link to="/contacto">Contacto</Link>
       </div>
       <div className="cart-widget">
