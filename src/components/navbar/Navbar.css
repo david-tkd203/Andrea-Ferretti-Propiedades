@@ -49,7 +49,9 @@
     padding-block: 16px;
     font-family: sans-serif;
 }
-
+.cart-widget{
+    display: flex;
+}
 .cart-widget a{
     text-decoration: none;
     color: black;

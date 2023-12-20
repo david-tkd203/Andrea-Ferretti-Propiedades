@@ -1,5 +1,6 @@
-import './Navbar.css'
-
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Navbar.css';
 
 function Navbar() {
   return (
@@ -8,13 +9,13 @@ function Navbar() {
         <img src="/andreaFP.png" alt="Logo empresa" className="logo" />
       </div>
       <div className="nav-items">
-        <a href="#">Inicio</a>
-        <a href="#">Arriendos</a>
-        <a href="#">Terrenos</a>
-        <a href="#">Contacto</a>
+        <Link to="/">Inicio</Link>
+        <Link to="/category/arriendos">Arriendos</Link>
+        <Link to="/category/terrenos">Terrenos</Link>
+        <Link to="/contacto">Contacto</Link>
       </div>
-      <div class= "cart-widget">
-        <carwidget> <a href="#">Inicio</a> </carwidget>
+      <div className="cart-widget">
+        <Link to="/carrito">Carrito</Link>
       </div>
     </nav>
   );
