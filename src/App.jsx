@@ -1,25 +1,23 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './components/navbar/Navbar';
-import ItemListContainer from './components/ItemListContainer/ItemListContainer';
-import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from '../src/components/navbar/Navbar';
+import ItemListContainer from '../src/components/ItemListContainer/ItemListContainer';
+import ItemDetailContainer from '../src/components/ItemDetailContainer/ItemDetailContainer';
+import "./App.css"
 
 function App() {
   return (
     <Router>
-      <>
-        <Navbar />
-        <section>
-          <Switch>
-            <Route exact path="/" component={ItemListContainer} />
-            <Route path="/category/:id" component={ItemListContainer} />
-            <Route path="/item/:id" component={ItemDetailContainer} />
-          </Switch>
-        </section>
-      </>
+      <Navbar />
+      <Routes>
+        <Route path="/items/:id" element={<ItemDetailContainer />} />
+        <Route path="/" element={<ItemListContainer />} />
+      </Routes>
     </Router>
   );
 }
 
 export default App;
+
+
+
 
