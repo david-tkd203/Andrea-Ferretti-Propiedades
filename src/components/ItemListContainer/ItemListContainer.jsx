@@ -1,57 +1,92 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useState, useEffect } from "react";  
 import './ItemListContainer.css';
+import { getDocs, collection } from "firebase/firestore";
+import { db } from "../Service/Firebase/FirebaseConfig";
 
-function ItemListContainer() {
-  const items = [
-    { id: 1, name: "Propiedad en arriendo", category: "Casa", image: "./propiedades arriendo/CASA_ARRIENDO_1.jpeg", descripcion: "Departamento bastante cómodo e iluminado y de tamaño acorde a su capacidad emplazado en QUINTO piso, tiene orientación surponiente. El condominio cuenta con una excelente conectividad y en su equipamiento destaca la proximidad a cuatro excelentes colegios, además a supermercado, centro comercial, panaderías, almacenes, la locomoción pública transita por fuera del condominio.", comuna: "Curico", operacion: "Venta" },
-    { id: 2, name: "Propiedad en venta", category: "Casa", image: "./propiedades en venta/VENTA_CASA_2.jpeg", descripcion: "Casa que se encuentra emplazada en calle, a una cuadra de la Plaza San Francisco, Avenida España, próximo a supermercados, comercio y a menos de 10 minutos caminando del centro cívico de la ciudad. Construcción aislada, de albañilería y en un nivel. El piso de la mayoría de los espacios de la propiedad es de parquet.", comuna: "Curico", operacion: "Arriendo" },
-  ];
+const ItemListContainer = ({ greeting }) => {
+  const [loading, setLoading] = useState(true);
+  const [productos, setProductos] = useState([]);
+  const { categoryId } = useParams();
+  const [filtro, setFiltro] = useState("todos"); // Puedes cambiar el valor inicial según tus necesidades
 
-  const arriendos = items.filter(item => item.operacion === "Arriendo");
-  const ventas = items.filter(item => item.operacion === "Venta");
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const collectionRef = collection(db, 'products');
+      
+      try {
+        const querySnapshot = await getDocs(collectionRef);
+        const productsArray = querySnapshot.docs.map(doc => {
+          const fields = doc.data();
+          return { id: doc.id, ...fields };
+        });
+        setProductos(productsArray);
+      } catch (error) {
+        console.error("Error en los documentos: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [categoryId]);
+
+  const handleFilterChange = (event) => {
+    setFiltro(event.target.value);
+  };
+
+  if (loading) {
+    return <p>Cargando...</p>;
+  }
+
+  const filteredProductos = filtro === "todos" ? productos : productos.filter(item => item.operacion === filtro);
 
   return (
     <div className="item-list-container">
-      <h1>Arriendos</h1>
-      <ul>
-        {ventas.map((item) => (
-          <li key={item.id}>
-            <div>
-              <img src={item.image} alt={item.name} />
-              <div>
-                <h3>
-                  <Link to={`/items/${item.id}`}>{item.name}</Link>
-                </h3>
-                <span> - {item.category}</span>
-                <p>{item.descripcion}</p>
-                <p>Comuna: {item.comuna}</p>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <h1>Ventas</h1>
-      <ul>
-        {arriendos.map((item) => (
-          <li key={item.id}>
-            <div>
-              <img src={item.image} alt={item.name} />
-              <div>
-                <h3>
-                  <Link to={`/items/${item.id}`}>{item.name}</Link>
-                </h3>
-                <span> - {item.category}</span>
-                <p>{item.descripcion}</p>
-                <p>Comuna: {item.comuna}</p>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <FilterSection filtro={filtro} onFilterChange={handleFilterChange} />
+      <ItemListSection title="Propiedades" items={filteredProductos} />
     </div>
   );
 }
 
+const FilterSection = ({ filtro, onFilterChange }) => (
+  <div>
+    <h2>Filtrar por:</h2>
+    <select value={filtro} onChange={onFilterChange}>
+      <option value="todos">Todos</option>
+      <option value="Arriendo">Arriendos</option>
+      <option value="Venta">Ventas</option>
+    </select>
+  </div>
+);
+
+const ItemListSection = ({ title, items }) => (
+  <>
+    <h1>{title}</h1>
+    <ul>
+      {items.map((item) => (
+        <li key={item.id}>
+          <div>
+            <img src={item.image} alt={item.name} />
+            <div>
+              <h3>
+                <Link to={`/items/${item.id}`}>{item.name}</Link>
+              </h3>
+              <span> - {item.category}</span>
+              <p>{item.descripcion}</p>
+              <p>Comuna: {item.comuna}</p>
+              <p>Baño: {item.baño}</p>
+              <p>Habitaciones: {item.habitaciones}</p>
+              <p>Estacionamientos: {item.estacionamientos}</p>
+              <p>Precio: {item.precio}</p>
+              <p>Tipo: {item.tipo}</p>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </>
+);
+
 export default ItemListContainer;
-
-
