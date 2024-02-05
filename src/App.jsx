@@ -9,7 +9,7 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/items/:id" element={<ItemDetailContainer />} />
+        <Route path="/detalle/:id" element={<ItemDetailContainer />} />
         <Route path="/" element={<ItemListContainer />} />
       </Routes>
     </Router>
@@ -17,6 +17,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
